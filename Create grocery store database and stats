@@ -1,0 +1,27 @@
+---Create gorcery store database
+
+CREATE TABLE beers 
+(id INTEGER PRIMARY KEY, name TEXT, price INTEGER, expiration_month TEXT, pack_size INTEGER);
+
+INSERT INTO beers VALUES 
+(1, "Corona", 12.00, "June", 6),
+(2, "Modelo", 10.00, "July", 6),
+(3, "Budlight", 8.99, "May", 6),
+(4, "Miller Light", 9.00, "August", 6),
+(5, "Heineken", 10.00, "May", 4),
+(6, "Budweiser", 7.99, "March", 4),
+(7, "Coors Light", 13.00, "May", 12),
+(8, "Busch Light", 14.99, "June", 12),
+(9, "Tecate", 13.99, "October", 12),
+(10, "Pacifico", 21.89, "November", 12),
+(11, "Dos Equis", 18.99, "December", 12),
+(12, "Samuel Adams", 26.99, "September", 12),
+(13, "Sol", 16.89, "July", 12),
+(14, "Guinness", 12.99, "August", 6),
+(15, "Blue Moon", 19.99, "November", 12);
+
+SELECT name,price, pack_size FROM beers
+WHERE price ORDER BY price ASC;
+
+SELECT name, price FROM beers 
+WHERE pack_size =12;
