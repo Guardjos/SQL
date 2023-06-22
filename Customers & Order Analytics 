@@ -1,0 +1,95 @@
+SELECT * FROM BIT_DB.customers LIMIT 20
+
+SELECT * FROM BIT_DB.customers;
+
+-- 1) How many orders were placed in January?
+SELECT COUNT(orderID) FROM BIT_DB.JanSales
+WHERE length(orderid) = 6 AND orderid <> 'Order ID';
+
+-- 2)How many of those orders were for an iPhone?
+SELECT COUNT(orderid) 
+FROM BIT_DB.JanSales 
+WHERE Product = "iPhone"
+AND length(orderid) = 6
+AND orderid <> "Order ID";
+
+-- 3)Select the customer account numbers for all the orders that were placed in February
+SELECT distinct acctnum 
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales sales
+ON cust.order_id = sales.orderid
+WHERE length (orderid) = 6
+AND orderid <> 'Order ID';
+
+-- 4)Which product was the cheapest one sold in January, and what was the price?
+SELECT distinct product, price 
+FROM BIT_DB.JanSales
+WHERE price in (SELECT MIN(price) FROM BIT_BD.JanSales);
+
+-- 5) What is the total revenue for each product sold in January?
+SELECT distinct Product, price 
+FROM BIT_DB.JanSales
+WHERE price in (SELECT min(price) FROM BIT_DB.JanSales);
+
+-- 6) Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT SUM(Quantity)*price AS revenue
+FROM BIT_DB.JanSales
+GROUP BY product;
+
+-- 7) How many customers ordered more than 2 products at a time in February, and what was the avarage amount spent for those customers?
+
+SELECT SUM(Quantity)*price AS revenue
+FROM BIT_DB.FebSales
+WHERE location = "548 Lincoln St, Seattle, WA 98101"
+GROUP BY product;
+
+
+SELECT COUNT(acctnum), AVG(Quantity)*price
+FROM BIT_DB.customers
+LEFT JOIN BIT_DB.FebSales
+ON customers.order_id=FebSales.orderID
+WHERE quantity < 2
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+--Real answer
+select 
+count(distinct cust.acctnum), 
+avg(quantity*price)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+WHERE Feb.Quantity>2
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+
+
+SELECT orderid, quantity, price, product
+
+FROM BIT_DB.JanSales;
+
+
+SELECT SUM(quantity), price, product
+
+FROM BIT_DB.JanSales
+
+GROUP BY product, price;
+
+SELECT SUM(quantity)*price as Revenue
+
+,product
+
+FROM BIT_DB.JanSales
+
+GROUP BY product
+
+List all the products sold in Los Angeles in February, and include how many of each were sold.
+
+SELECT SUM(quantity), product
+FROM BIT_DB.FebSales
+WHERE location LIKE '%Los Angeles%'
+Group by product;
+
+
+
